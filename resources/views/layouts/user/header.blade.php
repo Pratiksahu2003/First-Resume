@@ -24,23 +24,25 @@
     </span>
     @endif
             </a>
-            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                @foreach (getnotify(Auth::user()->id) as $item )
-                    
-              
-                <a href="" class="dropdown-item  notify"  data-id="{{$item->id}}">
+            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" style="max-height: 200px; overflow-y: auto;">
+                @foreach (getnotify(Auth::user()->id) as $item)
+                <a href="" class="dropdown-item notify" data-id="{{$item->id}}">
                     <h6 class="fw-normal mb-0">{{$item->title}}</h6>
-                    <small>{{@gettime($item->created_at)}} ( <b>
-                    @if($item->read == 1)
-                    Read 
-                    @else
-                    unread
-                    @endif    
-                    </b> )</small>
+                    <small>{{@gettime($item->created_at)}} (
+                        <b>
+                            @if($item->read == 1)
+                            Read
+                            @else
+                            unread
+                            @endif
+                        </b>
+                        )
+                    </small>
                 </a>
                 <hr class="dropdown-divider">
                 @endforeach
             </div>
+            
         </div>
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -48,8 +50,8 @@
                 <span class="d-none d-lg-inline-flex text-capitalize ">{{@Auth::user()->name}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                 <a href="#" class="dropdown-item">My Profile</a>
-                <a href="#" class="dropdown-item">Settings</a>
+                 <a href="{{route('profile.index')}}" class="dropdown-item">My Profile</a>
+                <a href="{{route('profile.index')}}" class="dropdown-item">Settings</a>
                 <a href="{{url('logout')}}" class="dropdown-item">Log Out</a>
             </div>
         </div>

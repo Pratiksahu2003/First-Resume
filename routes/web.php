@@ -7,7 +7,7 @@ use App\Http\Controllers\user\UserController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +42,11 @@ Route::middleware(['user'])->group(function () {
         // Notifications
         Route::get('/Notifications/{id}', [HomeController::class, 'notifications'])->name('notification.show');
 
+        // Profile Route 
+        Route::get('/profile', [ProfileController::class,'index'])->name('profile.index');
+        Route::post('/profile', 'ProfileController@store')->name('profile.store');
+        Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
+        Route::put('/profile/update', 'ProfileController@update')->name('profile.update');
     });
 });
 
@@ -51,14 +56,13 @@ Auth::routes();
 
 Route::middleware(['admin'])->group(function () {
 
-    
-    Route::prefix('admin')->group(function () {
-        Route::get('/home', [HomeController::class, 'admin_home']); 
-        // KYC Routes 
-        Route::get('/KYC-Complete', [KYCController::class, 'kyc_complete'])->name('kyc.complete'); 
-        Route::get('/KYC-Pending', [KYCController::class, 'kyc_pending'])->name('kyc.pending'); 
-        Route::get('show/{id}/{status}', [KYCController::class, 'kyc_show'])->name('kyc.show'); 
-        Route::get('update/{id}/{status}', [KYCController::class, 'kyc_update'])->name('kyc.update'); 
-    });
 
+    Route::prefix('admin')->group(function () {
+        Route::get('/home', [HomeController::class, 'admin_home']);
+        // KYC Routes 
+        Route::get('/KYC-Complete', [KYCController::class, 'kyc_complete'])->name('kyc.complete');
+        Route::get('/KYC-Pending', [KYCController::class, 'kyc_pending'])->name('kyc.pending');
+        Route::get('show/{id}/{status}', [KYCController::class, 'kyc_show'])->name('kyc.show');
+        Route::get('update/{id}/{status}', [KYCController::class, 'kyc_update'])->name('kyc.update');
+    });
 });
