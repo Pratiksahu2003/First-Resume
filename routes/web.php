@@ -44,9 +44,12 @@ Route::middleware(['user'])->group(function () {
 
         // Profile Route 
         Route::get('/profile', [ProfileController::class,'index'])->name('profile.index');
-        Route::post('/profile', 'ProfileController@store')->name('profile.store');
-        Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
-        Route::put('/profile/update', 'ProfileController@update')->name('profile.update');
+        Route::get('/View-profile', [ProfileController::class,'view'])->name('profile.view');
+        Route::get('/View-setting', [ProfileController::class,'setting'])->name('profile.setting');
+
+
+        Route::post('/profile/edit', [ProfileController::class,'edit'])->name('profile.edit');
+        Route::post('/profile/update',[ProfileController::class,'store'] )->name('profile.update');
     });
 });
 
