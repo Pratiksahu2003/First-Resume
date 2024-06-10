@@ -1,16 +1,8 @@
-@extends('layouts.auth.app')
-@section("title")
-| Registration
-@endsection
+@extends('layouts.app')
+
 @section('content')
 <div class="container-xxl position-relative bg-white d-flex p-0">
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
+  
 
     <!-- Sign Up Start -->
     <div class="container-fluid">
@@ -46,9 +38,7 @@
                             <label for="floatingPasswordConfirm">Confirm Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a> 
+                            <a href="">Forgot Password</a>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
                         <p class="text-center mb-0">Already have an Account? <a href="{{url('login')}}">Sign In</a></p>
@@ -61,6 +51,7 @@
 </div>
 @endsection
 @section('scripts')
+
 <script>
     $(document).ready(function () {
         $("#form").submit(function (event) {

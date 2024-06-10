@@ -8,6 +8,8 @@ use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResumeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +52,12 @@ Route::middleware(['user'])->group(function () {
 
         Route::post('/profile/edit', [ProfileController::class,'edit'])->name('profile.edit');
         Route::post('/profile/update',[ProfileController::class,'store'] )->name('profile.update');
+
+        // Resume Route 
+        Route::get('/Personal-Deaitals',[ResumeController::class,'ResumePersonalDeaitals'] )->name('resume.personal');
+        Route::post('/Personal-Deaitals-Save',[ResumeController::class,'ResumePersonalDeaitalsSave'] )->name('resume.personal.save');
+
+
     });
 });
 
