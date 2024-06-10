@@ -44,7 +44,10 @@ function notify($id)
 
 function getnotify($id)
 {
-    return Notification::where('user_id',$id)->get();
+    $notifications = Notification::where('user_id', $id)
+    ->orderBy('created_at', 'desc') // Assuming 'created_at' is the column indicating when the notification was created
+    ->get();
+    return $notifications;
 }
 
 function gettime($datetime) {

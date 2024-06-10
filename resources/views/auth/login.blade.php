@@ -1,4 +1,4 @@
-@extends('layouts.auth.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container-fluid">
@@ -12,7 +12,7 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
                         <a href="index.html" class="">
-                            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>First Reume</h3>
                         </a>
                         <h3>Sign In</h3>
                     </div>

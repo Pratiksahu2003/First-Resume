@@ -22,6 +22,8 @@ class KYCController extends Controller
         $data['kyc']  = KYCVerification::where('userid', Auth::user()->id)->first();
 
 
+        if($data['kyc'])
+        {
         if ($data['kyc']->status == 'pending') {
             return view('user.kyc.index', $data);
 
@@ -31,6 +33,11 @@ class KYCController extends Controller
         return view('user.kyc.verify', $data)->with('mes', 'KYC Completed');
 
         }
+    }else
+    {
+        return view('user.kyc.index',$data);
+
+    }
     }
 
  
