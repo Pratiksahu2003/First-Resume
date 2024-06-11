@@ -57,6 +57,9 @@ Route::middleware(['user'])->group(function () {
         Route::get('/Personal-Deaitals',[ResumeController::class,'ResumePersonalDeaitals'] )->name('resume.personal');
         Route::post('/Personal-Deaitals-Save',[ResumeController::class,'ResumePersonalDeaitalsSave'] )->name('resume.personal.save');
 
+        Route::get('/Education-Deaitals',[ResumeController::class,'ResumeEducationDeaitals'] )->name('resume.Education');
+        Route::post('/Education-Deaitals-Save',[ResumeController::class,'ResumeEducationDeaitalsSave'] )->name('resume.Education.save');
+
 
     });
 });

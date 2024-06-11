@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Education;
 use Illuminate\Http\Request;
 use App\Models\PersonalDetail; // Ensure you have created this model
 use Illuminate\Support\Facades\Validator;
@@ -49,11 +50,42 @@ class ResumeController extends Controller
       $personalDetail->district = $request->input('district');
       $personalDetail->address = $request->input('address');
       
-      // Save the record to the database
       $personalDetail->save();
 
-      // Return a success response
       return redirect()->back()->with('mes', ' data saved  SuccessFull');
+  }
+
+
+
+  public function  ResumeEducationDeaitals()
+  {
+    $data['edu'] = Education::where('user_id', Auth::user()->id)->get();
+
+    return view('user.resume.education',$data);
+  }
+
+  public function ResumeEducationDeaitalsSave(Request $request)
+  {
+    $request->validate([
+      'courseName' => 'required|string|max:255',
+      'collegeName' => 'required|string|max:255',
+      'passingYear' => 'required|date',
+      'startDate' => 'required|date',
+      'percentage' => 'required|integer|min:0|max:100',
+  ]);
+
+  $course = Education::create([
+    'user_id' => Auth::user()->id,
+    'courseName' => $request->courseName,
+    'collegeName' => $request->collegeName,
+    'passingYear' => $request->passingYear,
+    'startDate' => $request->startDate,
+    'percentage' => $request->percentage,
+]);
+
+return redirect()->back()->with('mes', ' data saved  SuccessFull');
+
+
   }
 
 }
