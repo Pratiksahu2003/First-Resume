@@ -59,7 +59,8 @@ Route::middleware(['user'])->group(function () {
 
         Route::get('/Education-Deaitals',[ResumeController::class,'ResumeEducationDeaitals'] )->name('resume.Education');
         Route::post('/Education-Deaitals-Save',[ResumeController::class,'ResumeEducationDeaitalsSave'] )->name('resume.Education.save');
-
+        Route::post('/education/update', [ResumeController::class, 'ResumeEducationDeaitalsupdate'])->name('resume.Education.update');
+        Route::delete('/education/delete/{id}', [ResumeController::class, 'ResumeEducationDeaitalsdestroy'])->name('resume.Education.delete');
 
     });
 });

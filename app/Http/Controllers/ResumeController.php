@@ -84,8 +84,40 @@ class ResumeController extends Controller
 ]);
 
 return redirect()->back()->with('mes', ' data saved  SuccessFull');
-
-
   }
+
+
+  public function ResumeEducationDeaitalsupdate(Request $request)
+  {
+      $validatedData = $request->validate([
+          'educationId' => 'required|integer|exists:education,id',
+          'courseName' => 'required|string|max:255',
+          'collegeName' => 'required|string|max:255',
+          'passingYear' => 'required|date',
+          'startDate' => 'required|date',
+          'percentage' => 'required|numeric|max:100',
+      ]);
+
+      $education = Education::findOrFail($request->educationId);
+      $education->update([
+        'user_id' => Auth::user()->id,
+        'courseName' => $request->courseName,
+        'collegeName' => $request->collegeName,
+        'passingYear' => $request->passingYear,
+        'startDate' => $request->startDate,
+        'percentage' => $request->percentage,
+      ]);
+      return redirect()->back()->with('success', 'Education details updated successfully.');
+  }
+
+  public function ResumeEducationDeaitalsdestroy($id)
+  {
+      $education = Education::findOrFail($id);
+      $education->delete();
+      return redirect()->back()->with('success', 'Education details deleted successfully.');
+  }
+
+
+
 
 }

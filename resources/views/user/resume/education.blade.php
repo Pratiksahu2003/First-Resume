@@ -8,7 +8,7 @@
     <div class="container my-4 vh-100">
         <div class="row justify-content-center">
             <div class="col-xl-12">
-                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal">
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal" onclick="openModal()">
                     Add +
                 </button>
                 <div class="card text-black" style="border-radius: 25px;">
@@ -27,6 +27,8 @@
                                     <th scope="col">Passing Year</th>
                                     <th scope="col">Start Date</th>
                                     <th scope="col">Percentage | CGPA | SGPA</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,6 +43,12 @@
                                     <td>{{@$item->passingYear}}</td>
                                     <td>{{@$item->startDate}}</td>
                                     <td>{{@$item->percentage}}</td>
+                                    <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal" onclick="editModal({{ json_encode($item) }})">Edit</button></td>
+                                    <td><form action="{{ route('resume.Education.delete', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form></td>
                                 </tr>
                                 @php
                                 $i +=1;
@@ -61,7 +69,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Education Details</h4>
+                    <h4 class="modal-title" id="modalTitle">Education Details</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -69,6 +77,7 @@
                 <div class="modal-body">
                     <form id="courseForm" method="post" action="{{route('resume.Education.save')}}">
                         @csrf
+                        <input type="hidden" id="educationId" name="educationId">
                         <div class="form-group mt-2">
                             <label for="courseName">Course Name:</label>
                             <input type="text" class="form-control" id="courseName" name='courseName' placeholder="Enter Course Name" required>
@@ -79,7 +88,7 @@
                         </div>
                         <div class="form-group mt-2">
                             <label for="passingYear">Passing Year:</label>
-                            <input type="Date" class="form-control" id="passingYear" name='passingYear' placeholder="Enter Passing Year" required>
+                            <input type="date" class="form-control" id="passingYear" name='passingYear' placeholder="Enter Passing Year" required>
                         </div>
                         <div class="form-group mt-2">
                             <label for="startDate">Start Date:</label>
@@ -94,13 +103,12 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('courseForm').reset();">Reset</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </form>
     </div>
-
             
 @if ($errors->any())
 <div class="alert alert-danger ">
@@ -137,5 +145,32 @@
             $(this).val(null);
         }
     });
+
+
+    
+function openModal() {
+    resetForm();
+    document.getElementById('modalTitle').innerText = 'Add Education Details';
+    document.getElementById('courseForm').action = "{{route('resume.Education.save')}}";
+}
+
+function editModal(item) {
+    document.getElementById('modalTitle').innerText = 'Edit Education Details';
+    document.getElementById('courseForm').action = "{{route('resume.Education.update')}}";
+    document.getElementById('educationId').value = item.id;
+    document.getElementById('courseName').value = item.courseName;
+    document.getElementById('collegeName').value = item.collegeName;
+    document.getElementById('passingYear').value = item.passingYear;
+    document.getElementById('startDate').value = item.startDate;
+    document.getElementById('percentage').value = item.percentage;
+}
+
+function resetForm() {
+    document.getElementById('courseForm').reset();
+    document.getElementById('educationId').value = '';
+}
+</script>
+
+
 </script>
 @endsection
