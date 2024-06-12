@@ -62,6 +62,16 @@ Route::middleware(['user'])->group(function () {
         Route::post('/education/update', [ResumeController::class, 'ResumeEducationDeaitalsupdate'])->name('resume.Education.update');
         Route::delete('/education/delete/{id}', [ResumeController::class, 'ResumeEducationDeaitalsdestroy'])->name('resume.Education.delete');
 
+        Route::get('/technical-Skill',[ResumeController::class,'techSkillShoww'] )->name('resume.tech');
+        Route::post('TechSkill/save', [ResumeController::class, 'techSkillsave'])->name('resume.TechSkill.save');
+        Route::delete('TechSkill/delete/{id}', [ResumeController::class, 'techSkilldelete'])->name('resume.TechSkill.delete');
+        Route::get('/experience-Skill',[ResumeController::class,'experienceShoww'] )->name('resume.experience');
+
+        Route::post('techskill/save', [ResumeController::class, 'experiencesave'])->name('resume.Experiance.save');
+        Route::delete('techskill/{id}/delete', [ResumeController::class, 'experiencedelete'])->name('resume.Experiance.delete');
+
+
+
     });
 });
 

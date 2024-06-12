@@ -3,8 +3,13 @@
 use App\Models\General;
 use App\Models\KYCDocument;
 use App\Models\Notification;
+use App\Models\Skill;
 
-
+function skill($id)
+{
+    $skill = Skill::findOrFail($id);
+    return $skill->name ?: ''; // Return the name or an empty string if the name is null
+}
 
 
 function doc_type($id)

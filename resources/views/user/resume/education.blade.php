@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 <section class="container-fluid">
-    <div class="container my-4 vh-100">
+    <div class="container my-4 ">
         <div class="row justify-content-center">
             <div class="col-xl-12">
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal" onclick="openModal()">

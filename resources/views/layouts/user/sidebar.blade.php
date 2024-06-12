@@ -23,14 +23,7 @@
             </div>
             <div class="navbar-nav w-100">
                 <a href="{{url('home')}}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                {{-- <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>KYC</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="button.html" class="dropdown-item">Buttons</a>
-                        <a href="typography.html" class="dropdown-item">Typography</a>
-                        <a href="element.html" class="dropdown-item">Other Elements</a>
-                    </div>
-                </div> --}}
+               
                 <a href="{{url('/user/kyc')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>KYC</a>
 
           
@@ -39,10 +32,19 @@
                     <div class="dropdown-menu bg-transparent border-0">
                 <a href="{{ route('resume.personal')}}" class="nav-item nav-link">Personal details</a>
                 <a href="{{ route('resume.Education')}}" class="nav-item nav-link">Education details</a>
+                <a href="{{ route('resume.tech')}}" class="nav-item nav-link">Technical Skills</a>
+                <a href="{{ route('resume.experience')}}" class="nav-item nav-link">Experience</a>
+                     
+            </div>
 
-                     
-                     
-                    </div>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Setting</a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="{{ url('/user/View-profile')  }}" class="dropdown-item">My Profile</a>
+                    <a href="{{route('profile.setting')}}" class="dropdown-item">Password Reset</a>
+                    <a href="{{url('logout')}}" class="dropdown-item">Log Out</a>
+                </div>
+            </div>
                 </div> 
             </div>
         </nav>

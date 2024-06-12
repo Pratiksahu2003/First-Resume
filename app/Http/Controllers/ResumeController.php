@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Education;
+use App\Models\Experiance;
 use Illuminate\Http\Request;
 use App\Models\PersonalDetail; // Ensure you have created this model
+use App\Models\Skill;
+use App\Models\TechSkill;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 class ResumeController extends Controller
@@ -90,7 +93,6 @@ return redirect()->back()->with('mes', ' data saved  SuccessFull');
   public function ResumeEducationDeaitalsupdate(Request $request)
   {
       $validatedData = $request->validate([
-          'educationId' => 'required|integer|exists:education,id',
           'courseName' => 'required|string|max:255',
           'collegeName' => 'required|string|max:255',
           'passingYear' => 'required|date',
@@ -107,17 +109,111 @@ return redirect()->back()->with('mes', ' data saved  SuccessFull');
         'startDate' => $request->startDate,
         'percentage' => $request->percentage,
       ]);
-      return redirect()->back()->with('success', 'Education details updated successfully.');
+      return redirect()->back()->with('mes', 'Education details updated successfully.');
   }
 
   public function ResumeEducationDeaitalsdestroy($id)
   {
       $education = Education::findOrFail($id);
+      
       $education->delete();
-      return redirect()->back()->with('success', 'Education details deleted successfully.');
+      return redirect()->back()->with('mes', 'Education details deleted successfully.');
+  }
+
+  public function  techSkillShoww()
+  {
+    $data['skills'] = Skill::get();
+    $data['techSkills']  = TechSkill::where('user_id',Auth::user()->id)->get();
+
+    return view('user.resume.tech',$data);
+  }
+  
+  public function techSkillsave(Request $request)
+  {
+      $request->validate([
+          'skillName' => 'required|string|max:255',
+          'proficiencyLevel' => 'required|string|max:255',
+      ]);
+
+      if ($request->has('techSkillId') && $request->techSkillId) {
+          $techSkill = TechSkill::find($request->techSkillId);
+          if (!$techSkill) {
+              return redirect()->back()->with('err','Skill not found.');
+          }
+      } else {
+          $techSkill = new TechSkill();
+      }
+      $techSkill->user_id = Auth::user()->id;
+      $techSkill->skillName = $request->skillName;
+      $techSkill->proficiencyLevel = $request->proficiencyLevel;
+      $techSkill->save();
+
+      return redirect()->back()->with('mes', 'Tech Skill saved successfully.');
+  }
+
+  public function techSkilldelete($id)
+  {
+      $techSkill = TechSkill::find($id);
+      if (!$techSkill) {
+          return redirect()->back()->with('err','Skill not found.');
+      }
+
+      $techSkill->delete();
+
+      return redirect()->back()->with('mes', 'Tech Skill deleted successfully.');
+  }
+
+  public function experienceShoww()
+  {
+    $data['experiences'] = Experiance::where('user_id',Auth::user()->id)->get();
+
+    return view('user.resume.experience',$data);
   }
 
 
+  public function experiencesave(Request $request)
+  {
+      $request->validate([
+          'companyName' => 'required|string|max:255',
+          'joiningDate' => 'required|date',
+          'position' => 'required|string|max:255',
+          'description' => 'nullable|string',
+          'endDate' => 'nullable|date',
+      ]);
 
+      if ($request->techSkillId) {
+          $techSkill = Experiance::findOrFail($request->techSkillId);
+      } else {
+          $techSkill = new Experiance();
+      }
+      $techSkill->user_id = Auth::user()->id;
+
+      $techSkill->companyName = $request->companyName;
+      $techSkill->joiningDate = $request->joiningDate;
+      $techSkill->position = $request->position;
+      $techSkill->description = $request->description;
+
+      if ($request->has('workHere') && $request->workHere === 'yes') {
+          $techSkill->endDate = null; // or you can set it to null if needed
+      } else {
+          $techSkill->endDate = $request->endDate;
+      }
+
+      // Save the TechSkill instance
+      $techSkill->save();
+
+      // Redirect back with success message
+      return redirect()->back()->with('mes', 'Tech Skill saved successfully.');
+  }
+
+  public function experiencedelete($id)
+  {
+      // Find and delete the TechSkill instance
+      $techSkill = Experiance::findOrFail($id);
+      $techSkill->delete();
+
+      // Redirect back with success message
+      return redirect()->back()->with('mes', 'Tech Skill deleted successfully.');
+  }
 
 }
