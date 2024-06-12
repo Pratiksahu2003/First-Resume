@@ -71,6 +71,11 @@ Route::middleware(['user'])->group(function () {
         Route::delete('techskill/{id}/delete', [ResumeController::class, 'experiencedelete'])->name('resume.Experiance.delete');
 
 
+Route::post('/personal-details', [ResumeController::class, 'objectivestore'])->name('resume.personal.store');
+Route::get('/personal-details/show', [ResumeController::class, 'objectiveshow'])->name('resume.personal.show');
+
+
+
 
     });
 });
