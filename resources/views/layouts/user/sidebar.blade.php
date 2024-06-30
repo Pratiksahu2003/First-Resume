@@ -34,6 +34,8 @@
                 <a href="{{ route('resume.Education')}}" class="nav-item nav-link">Education details</a>
                 <a href="{{ route('resume.tech')}}" class="nav-item nav-link">Technical Skills</a>
                 <a href="{{ route('resume.experience')}}" class="nav-item nav-link">Experience</a>
+                <a href="{{ route('resume.personal.show')}}" class="nav-item nav-link">Objective</a>
+
                      
             </div>
 

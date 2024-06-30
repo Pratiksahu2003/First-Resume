@@ -6,6 +6,8 @@ use App\Models\Education;
 use App\Models\Experiance;
 use Illuminate\Http\Request;
 use App\Models\PersonalDetail; // Ensure you have created this model
+use App\Models\AdditionalDetail; // Ensure you have created this model
+
 use App\Models\Skill;
 use App\Models\TechSkill;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +16,7 @@ class ResumeController extends Controller
 {
   public function  ResumePersonalDeaitals()
   {
-    $data['kyc'] = PersonalDetail::where('userid', Auth::user()->id)->first();
+    $data['kyc'] = PersonalDetail::where('user_id', Auth::user()->id)->first();
 
     return view('user.resume.personal',$data);
   }
@@ -215,5 +217,43 @@ return redirect()->back()->with('mes', ' data saved  SuccessFull');
       // Redirect back with success message
       return redirect()->back()->with('mes', 'Tech Skill deleted successfully.');
   }
+
+  public function objectiveshow()
+  {
+    $data['kyc'] = AdditionalDetail::where('user_id',Auth::user()->id)->first();
+    return view('user.resume.objective',$data);
+  }
+
+
+
+  public function objectivestore(Request $request)
+  {
+      $validatedData = $request->validate([
+          'objective' => 'required|string',
+          'about_us' => 'required|string',
+      ]);
+
+      if($request->id)
+      {
+        $additionalDetail =  AdditionalDetail::find($request->id);
+      }
+else{
+      $additionalDetail = new AdditionalDetail();
+}
+      $additionalDetail->user_id = Auth::user()->id;
+      $additionalDetail->objective = $request->objective;
+      $additionalDetail->about_us = $request->about_us;
+     
+     if( $additionalDetail->save())
+      {
+      return redirect()->back()->with('mes', 'details saved successfully.');
+      }
+      else
+      {
+      return redirect()->back()->with('del', 'Serve Busy try Again.');
+
+      }
+  }
+
 
 }
