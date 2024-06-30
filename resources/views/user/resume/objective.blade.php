@@ -8,13 +8,13 @@
 <section class="container-fluid">
     <div class="container my-4">
         <div class="row justify-content-center">
-            <div class="col-xl-8">
-                <div class="card text-black" style="border-radius: 25px;">
+            <div class="col-xl-12">
+                <div class="card shadow-sm" style="border-radius: 25px;">
                     <div class="card-body">
-                        <div class="card-header border-bottom bg-light p-2">
-                            <p class="text-center h4 text-primary">Additional Details</p>
+                        <div class="card-header bg-light border-bottom p-2">
+                            <h5 class="text-center text-primary mb-0">Additional Details</h5>
                         </div>
-                        <div class="container-fluid p-3">
+                        <div class="container-fluid py-3">
                             <form action="{{ route('resume.personal.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                             
@@ -22,12 +22,12 @@
 
                                 <div class="mb-3">
                                     <label for="objective" class="form-label">Objective:</label>
-                                    <textarea id="objective" rows="5"  name="objective" required>{{ $kyc->objective ?? '' }}</textarea>
+                                    <textarea id="objective" rows="5" class="form-control" name="objective" required>{{ $kyc->objective ?? '' }}</textarea>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="aboutUs" class="form-label">About Us:</label>
-                                    <textarea id="aboutUs" rows="5" name="about_us" required>{{ $kyc->about_us ?? '' }}</textarea>
+                                    <textarea id="aboutUs" rows="5" class="form-control" name="about_us" required>{{ $kyc->about_us ?? '' }}</textarea>
                                 </div>
 
                                 <div class="card-footer p-2 text-center">
@@ -54,20 +54,29 @@
 @endsection
 
 @section('scripts')
-    <!-- CKEditor CDN -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
+    <!-- Summernote CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            ClassicEditor
-                .create(document.querySelector('#objective'))
-                .catch(error => {
-                    console.error(error);
-                });
-            ClassicEditor
-                .create(document.querySelector('#aboutUs'))
-                .catch(error => {
-                    console.error(error);
-                });
+            $('#objective').summernote({
+                placeholder: 'Enter your objective here...',
+                height: 150, // Adjust the height as needed
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                ]
+            });
+
+            $('#aboutUs').summernote({
+                placeholder: 'Enter about us here...',
+                height: 150, // Adjust the height as needed
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                ]
+            });
         });
     </script>
 @endsection
