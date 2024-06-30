@@ -8,7 +8,7 @@
     <!-- Sign Up Start -->
     <div class="container-fluid">
         <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                 <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <a href="{{url('')}}" class="">
@@ -16,7 +16,7 @@
                         </a>
                         <h6>Sign Up</h6>
                     </div>
-                    <form action="{{url('submit')}}" method="post" id="form">
+                    <form action="{{secure_url('submit')}}" method="post" id="form">
                         @csrf
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingText" placeholder="Full Name" name="name" required>
@@ -54,7 +54,6 @@
 </div>
 @endsection
 @section('scripts')
-
 <script>
     $(document).ready(function () {
         $("#form").submit(function (event) {
@@ -63,7 +62,7 @@
             var formData = $(this).serialize();
             $.ajax({
                 type: "POST",
-                url: "{{ url('submit') }}",
+                url: "{{ secure_url('submit') }}",
                 data: formData,
                 dataType: "json", // Expect JSON response
                 success: function (response) {

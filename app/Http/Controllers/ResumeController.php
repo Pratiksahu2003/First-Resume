@@ -16,7 +16,7 @@ class ResumeController extends Controller
 {
   public function  ResumePersonalDeaitals()
   {
-    $data['kyc'] = PersonalDetail::where('user_id', Auth::user()->id)->first();
+    $data['kyc'] = PersonalDetail::where('userid', Auth::user()->id)->first();
 
     return view('user.resume.personal',$data);
   }

@@ -65,8 +65,8 @@ class KYCController extends Controller
             ],
 
             'doc_type' => 'required',
-            'doc_front' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'doc_back' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'doc_front' => 'image|max:2048',
+            'doc_back' => 'image|max:2048',
             'agree' => 'required',
         ]);
 
@@ -74,7 +74,7 @@ class KYCController extends Controller
 
         if (isset($request->id)) {
 
-            $verification = KYCVerification::where('userid', $request->id)->first();
+            $verification = KYCVerification::where('id', $request->id)->first();
         } else {
             $verification = new KYCVerification();
         }
@@ -132,8 +132,8 @@ class KYCController extends Controller
         $verification->district = $data['district'];
         $verification->doc_no = $data['doc_no'];
         $verification->doc_type = $data['doc_type'];
-        $verification->doc_back = $docBackPath;
-        $verification->doc_front = $docFrontPath;
+        $verification->doc_back = $docBackPath ?? $previousDocFrontPath;
+        $verification->doc_front = $docFrontPath ?? $previousDocBackPath;
         $verification->agree = $request->agree;
         $verification->status = 'pending';
 

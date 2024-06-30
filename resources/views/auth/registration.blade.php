@@ -16,7 +16,7 @@
                         </a>
                         <h6>Sign Up</h6>
                     </div>
-                    <form action="{{url('submit')}}" method="post" id="form">
+                    <form action="{{secure_url('submit')}}" method="post" id="form">
                         @csrf
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingText" placeholder="Full Name" name="name" required>
@@ -62,7 +62,7 @@
             var formData = $(this).serialize();
             $.ajax({
                 type: "POST",
-                url: "{{ url('submit') }}",
+                url: "{{ secure_url('submit') }}",
                 data: formData,
                 dataType: "json", // Expect JSON response
                 success: function (response) {

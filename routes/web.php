@@ -29,7 +29,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 // Route::post('/auth', [AuthController::class, 'auth']);
 
 Route::get('/registration', [AuthController::class, 'registration']);
-Route::post('/submit', [AuthController::class, 'submit']);
+Route::post('/submit', [AuthController::class, 'submit'])->name('submit');
 
 
 Route::middleware(['user'])->group(function () {

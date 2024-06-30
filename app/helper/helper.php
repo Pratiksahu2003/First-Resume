@@ -4,6 +4,7 @@ use App\Models\General;
 use App\Models\KYCDocument;
 use App\Models\Notification;
 use App\Models\Skill;
+use Illuminate\Support\Facades\Auth;
 
 function skill($id)
 {
@@ -29,7 +30,7 @@ function generateFileName($file,$name)
     $timestamp = time();
     $prefix = 'FR';
 
-    return $prefix . '_' . $timestamp .$name. '.' . $extension;
+    return Auth::id().$prefix . '_' . $timestamp .$name. '.' . $extension;
 }
 
 function moveFile($file, $destinationDirectory, $fileName)

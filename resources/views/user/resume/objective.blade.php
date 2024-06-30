@@ -1,7 +1,7 @@
 @extends('layouts.user.app')
 
 @section('title')
-    | {{ 'Personal Details' }}
+    | Personal Details
 @endsection
 
 @section('content')
@@ -18,16 +18,16 @@
                             <form action="{{ route('resume.personal.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                             
-                                <input type="hidden" name="id" value="{{@$kyc->id}}">
+                                <input type="hidden" name="id" value="{{ $kyc->id ?? '' }}">
 
                                 <div class="mb-3">
                                     <label for="objective" class="form-label">Objective:</label>
-                                    <textarea id="objective" rows="15" class="form-control" name="objective" required>{{ @$kyc->objective}}</textarea>
+                                    <textarea id="objective" rows="5"  name="objective" required>{{ $kyc->objective ?? '' }}</textarea>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="aboutUs" class="form-label">About Us:</label>
-                                    <textarea id="aboutUs" rows="15" class="form-control" name="about_us" required>{{@$kyc->about_us }}</textarea>
+                                    <textarea id="aboutUs" rows="5" name="about_us" required>{{ $kyc->about_us ?? '' }}</textarea>
                                 </div>
 
                                 <div class="card-footer p-2 text-center">
@@ -54,17 +54,20 @@
 @endsection
 
 @section('scripts')
+    <!-- CKEditor CDN -->
     <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#objective'))
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#aboutUs'))
-            .catch(error => {
-                console.error(error);
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            ClassicEditor
+                .create(document.querySelector('#objective'))
+                .catch(error => {
+                    console.error(error);
+                });
+            ClassicEditor
+                .create(document.querySelector('#aboutUs'))
+                .catch(error => {
+                    console.error(error);
+                });
+        });
     </script>
 @endsection
