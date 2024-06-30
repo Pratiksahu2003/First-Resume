@@ -5,9 +5,9 @@
 @endsection
 @section('content')
 <section class="container-fluid">
-    <div class="container my-4 ">
+    <div class="container my-4">
         <div class="row justify-content-center">
-            <div class="col-xl-12">
+            <div class="col-12">
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal" onclick="openModal()">
                     Add +
                 </button>
@@ -17,45 +17,51 @@
                             <p class="text-center h4 text-primary">Education Details</p>
                         </div>
                         
-                        <table class="table table-bordered border-top" id='educationDetails'>
-                            <hr>
-                            <thead>
-                                <tr>
-                                    <th scope="col">S.no</th>
-                                    <th scope="col">Course Name</th>
-                                    <th scope="col">College | School Name</th>
-                                    <th scope="col">Passing Year</th>
-                                    <th scope="col">Start Date</th>
-                                    <th scope="col">Percentage | CGPA | SGPA</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $i =1;
-                                @endphp
-                                @foreach ($edu as $item)
-                                <tr>
-                                    <th scope="row">{{$i}}</th>
-                                    <td>{{@$item->courseName}}</td>
-                                    <td>{{@$item->collegeName}}</td>
-                                    <td>{{@$item->passingYear}}</td>
-                                    <td>{{@$item->startDate}}</td>
-                                    <td>{{@$item->percentage}}</td>
-                                    <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal" onclick="editModal({{ json_encode($item) }})">Edit</button></td>
-                                    <td><form action="{{ route('resume.Education.delete', $item->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form></td>
-                                </tr>
-                                @php
-                                $i +=1;
-                                @endphp
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-bordered border-top" id="educationDetails">
+                                <hr>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">S.no</th>
+                                        <th scope="col">Course Name</th>
+                                        <th scope="col">College | School Name</th>
+                                        <th scope="col">Passing Year</th>
+                                        <th scope="col">Start Date</th>
+                                        <th scope="col">Percentage | CGPA | SGPA</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $i = 1;
+                                    @endphp
+                                    @foreach ($edu as $item)
+                                    <tr>
+                                        <th scope="row">{{ $i }}</th>
+                                        <td>{{ @$item->courseName }}</td>
+                                        <td>{{ @$item->collegeName }}</td>
+                                        <td>{{ @$item->passingYear }}</td>
+                                        <td>{{ @$item->startDate }}</td>
+                                        <td>{{ @$item->percentage }}</td>
+                                        <td>
+                                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal" onclick="editModal({{ json_encode($item) }})">Edit</button>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('resume.Education.delete', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @php
+                                    $i += 1;
+                                    @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,28 +81,28 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form id="courseForm" method="post" action="{{route('resume.Education.save')}}">
+                    <form id="courseForm" method="post" action="{{ route('resume.Education.save') }}">
                         @csrf
                         <input type="hidden" id="educationId" name="educationId">
                         <div class="form-group mt-2">
                             <label for="courseName">Course Name:</label>
-                            <input type="text" class="form-control" id="courseName" name='courseName' placeholder="Enter Course Name" required>
+                            <input type="text" class="form-control" id="courseName" name="courseName" placeholder="Enter Course Name" required>
                         </div>
                         <div class="form-group mt-2">
                             <label for="collegeName">College | School Name:</label>
-                            <input type="text" class="form-control" id="collegeName" name='collegeName' placeholder="Enter College or School Name" required>
+                            <input type="text" class="form-control" id="collegeName" name="collegeName" placeholder="Enter College or School Name" required>
                         </div>
                         <div class="form-group mt-2">
                             <label for="passingYear">Passing Year:</label>
-                            <input type="date" class="form-control" id="passingYear" name='passingYear' placeholder="Enter Passing Year" required>
+                            <input type="date" class="form-control" id="passingYear" name="passingYear" placeholder="Enter Passing Year" required>
                         </div>
                         <div class="form-group mt-2">
                             <label for="startDate">Start Date:</label>
-                            <input type="date" class="form-control" id="startDate" name='startDate' required>
+                            <input type="date" class="form-control" id="startDate" name="startDate" required>
                         </div>
                         <div class="form-group mt-2">
                             <label for="percentage">Percentage | CGPA | SGPA:</label>
-                            <input type="number" class="form-control" id="percentage" name='percentage' placeholder="Enter Percentage, CGPA, or SGPA" required max='100'>
+                            <input type="number" class="form-control" id="percentage" name="percentage" placeholder="Enter Percentage, CGPA, or SGPA" required max="100">
                         </div>
                 </div>
 
@@ -109,18 +115,19 @@
             </div>
         </form>
     </div>
-            
-@if ($errors->any())
-<div class="alert alert-danger ">
-    <ul>
-        @foreach ($errors->all() as $error)
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
+            @endforeach
+        </ul>
+    </div>
+    @endif
     </div>
 </section>
+
 
 
 

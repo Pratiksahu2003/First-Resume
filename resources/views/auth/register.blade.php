@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.auth.app')
+
 
 @section('content')
 <div class="container-xxl position-relative bg-white d-flex p-0">
@@ -7,7 +8,7 @@
     <!-- Sign Up Start -->
     <div class="container-fluid">
         <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
                 <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <a href="{{url('')}}" class="">
@@ -38,7 +39,9 @@
                             <label for="floatingPasswordConfirm">Confirm Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <a href="">Forgot Password</a>
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password') }}
+                            </a>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
                         <p class="text-center mb-0">Already have an Account? <a href="{{url('login')}}">Sign In</a></p>

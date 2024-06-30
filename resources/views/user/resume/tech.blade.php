@@ -5,9 +5,9 @@
 @section('content')
 
 <section class="container-fluid">
-    <div class="container my-4 ">
+    <div class="container my-4">
         <div class="row justify-content-center">
-            <div class="col-xl-12">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#techModal" onclick="openTechModal()">
                     Add +
                 </button>
@@ -17,41 +17,43 @@
                             <p class="text-center h4 text-primary">Tech Skills</p>
                         </div>
                         
-                        <table class="table table-bordered border-top" id='techSkills'>
-                            <hr>
-                            <thead>
-                                <tr>
-                                    <th scope="col">S.no</th>
-                                    <th scope="col">Skill Name</th>
-                                    <th scope="col">Proficiency Level</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $i = 1;
-                                @endphp
-                                @foreach ($techSkills as $skill)
-                                <tr>
-                                    <th scope="row">{{$i}}</th>
-                                    <td>{{skill(@$skill->skillName)}}</td>
-                                    <td>{{@$skill->proficiencyLevel}}</td>
-                                    <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#techModal" onclick="editTechModal({{ json_encode($skill) }})">Edit</button></td>
-                                    <td>
-                                        <form action="{{ route('resume.TechSkill.delete', $skill->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @php
-                                $i += 1;
-                                @endphp
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-bordered border-top" id='techSkills'>
+                                <hr>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">S.no</th>
+                                        <th scope="col">Skill Name</th>
+                                        <th scope="col">Proficiency Level</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $i = 1;
+                                    @endphp
+                                    @foreach ($techSkills as $skill)
+                                    <tr>
+                                        <th scope="row">{{$i}}</th>
+                                        <td>{{skill(@$skill->skillName)}}</td>
+                                        <td>{{@$skill->proficiencyLevel}}</td>
+                                        <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#techModal" onclick="editTechModal({{ json_encode($skill) }})">Edit</button></td>
+                                        <td>
+                                            <form action="{{ route('resume.TechSkill.delete', $skill->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @php
+                                    $i += 1;
+                                    @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

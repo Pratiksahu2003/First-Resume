@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.auth.app')
+
 
 @section('content')
 <div class="container-xxl position-relative bg-white d-flex p-0">
@@ -38,7 +39,9 @@
                             <label for="floatingPasswordConfirm">Confirm Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <a href="">Forgot Password</a>
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password') }}
+                            </a>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
                         <p class="text-center mb-0">Already have an Account? <a href="{{url('login')}}">Sign In</a></p>

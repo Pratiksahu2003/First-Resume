@@ -5,9 +5,9 @@
 @section('content')
 
 <section class="container-fluid">
-    <div class="container my-4 ">
+    <div class="container my-4">
         <div class="row justify-content-center">
-            <div class="col-xl-12">
+            <div class="col-12">
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#techModal" onclick="openTechModal()">
                     Add +
                 </button>
@@ -17,52 +17,57 @@
                             <p class="text-center h4 text-primary">Experience</p>
                         </div>
                         
-                        <table class="table table-bordered border-top" id='techSkills'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">S.no</th>
-                                    <th scope="col">Company Name</th>
-                                    <th scope="col">Joining Date</th>
-                                    <th scope="col">End Date</th>
-                                    <th scope="col">Position</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $i = 1;
-                                @endphp
-                                @foreach ($experiences as $skill)
-                                <tr>
-                                    <th scope="row">{{$i}}</th>
-                                    <td>{{ $skill->companyName }}</td>
-                                    <td>{{ $skill->joiningDate }}</td>
-                                    <td>{{ $skill->endDate }}</td>
-                                    <td>{{ $skill->position }}</td>
-                                    <td>{{ $skill->description }}</td>
-                                    <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#techModal" onclick="editTechModal({{ json_encode($skill) }})">Edit</button></td>
-                                    <td>
-                                        <form action="{{ route('resume.Experiance.delete', $skill->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @php
-                                $i += 1;
-                                @endphp
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-bordered border-top" id="techSkills">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">S.no</th>
+                                        <th scope="col">Company Name</th>
+                                        <th scope="col">Joining Date</th>
+                                        <th scope="col">End Date</th>
+                                        <th scope="col">Position</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $i = 1;
+                                    @endphp
+                                    @foreach ($experiences as $skill)
+                                    <tr>
+                                        <th scope="row">{{ $i }}</th>
+                                        <td>{{ $skill->companyName }}</td>
+                                        <td>{{ $skill->joiningDate }}</td>
+                                        <td>{{ $skill->endDate }}</td>
+                                        <td>{{ $skill->position }}</td>
+                                        <td>{{ $skill->description }}</td>
+                                        <td>
+                                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#techModal" onclick="editTechModal({{ json_encode($skill) }})">Edit</button>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('resume.Experiance.delete', $skill->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @php
+                                    $i += 1;
+                                    @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- The Modal -->
 <div class="modal fade" id="techModal">
