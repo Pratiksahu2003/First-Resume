@@ -80,10 +80,10 @@ function gettime($datetime) {
 }
 
 
- function getUserName()
+ function getSkillsName($id)
 {
 
-  return  User::where('id', auth()->id())->pluck('username')->first();
+  return  Skill::where('id', $id)->pluck('name')->first();
 
     
 }
