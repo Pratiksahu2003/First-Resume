@@ -21,7 +21,7 @@
                                 <input type="hidden" name="id" value="{{ $kyc->id ?? '' }}">
 
                                 <div class="mb-3">
-                                    <label for="objective" class="form-label">Objective:</label>
+                                    <label for="objective" class="form-label">Interests:</label>
                                     <textarea id="objective" rows="5" class="form-control" name="objective" required>{{ $kyc->objective ?? '' }}</textarea>
                                 </div>
 

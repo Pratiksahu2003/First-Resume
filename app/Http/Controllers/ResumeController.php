@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Education;
+use App\Models\User;
 use App\Models\Experiance;
 use Illuminate\Http\Request;
 use App\Models\PersonalDetail; // Ensure you have created this model
@@ -255,5 +256,16 @@ else{
       }
   }
 
+  public function userResumeHere($id)
+  {
+    $user = User::where('username',$id)->first();
+    $data['personalDetail'] = PersonalDetail::where('userid', $user->id)->first();
+    $data['edu'] = Education::where('user_id', $user->id)->get();
+    $data['techSkills'] = TechSkill::where('user_id', $user->id)->get();
+    $data['experiences'] = Experiance::where('user_id', $user->id)->get();
+    $data['other'] = AdditionalDetail::where('user_id', $user->id)->first();
+    $data['user'] = $user;
+    return view('resume-tem.tempalte1',$data);
+  }
 
 }

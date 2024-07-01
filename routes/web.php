@@ -31,7 +31,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/registration', [AuthController::class, 'registration']);
 Route::post('/submit', [AuthController::class, 'submit'])->name('submit');
 
-
+Route::get('user/resume/{id}', [ResumeController::class, 'userResumeHere'])->name('resume.user');
 Route::middleware(['user'])->group(function () {
 
 

@@ -4,6 +4,8 @@ use App\Models\General;
 use App\Models\KYCDocument;
 use App\Models\Notification;
 use App\Models\Skill;
+use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
 
 function skill($id)
@@ -78,3 +80,10 @@ function gettime($datetime) {
 }
 
 
+ function getUserName()
+{
+
+  return  User::where('id', auth()->id())->pluck('username')->first();
+
+    
+}

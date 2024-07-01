@@ -38,7 +38,8 @@
 
                      
             </div>
-
+         
+            
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Setting</a>
                 <div class="dropdown-menu bg-transparent border-0">
@@ -47,6 +48,9 @@
                     <a href="{{url('logout')}}" class="dropdown-item">Log Out</a>
                 </div>
             </div>
+            <a href="{{ route('resume.user', ['id' => auth()->user()->username ]) }}" class="nav-item nav-link">
+                <i class="fa fa-th me-2"></i>View User Resume
+            </a>
                 </div> 
             </div>
         </nav>
